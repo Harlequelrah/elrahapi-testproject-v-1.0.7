@@ -1,4 +1,5 @@
 
+from elrahapi.router.router_default_routes_name import DefaultRoutesName
 from elrahapi.router.router_provider import CustomRouterProvider
 from .cruds import user_crud,user_privilege_crud,role_crud,privilege_crud,role_privilege_crud
 from .configs import authentication
@@ -42,7 +43,13 @@ role_privilege_router_provider=CustomRouterProvider(
     )
 
 
-user_router = user_router_provider.get_protected_router()
+user_router = user_router_provider.get_custom_public_router(
+    public_routes_name=[
+        DefaultRoutesName.CREATE,
+        DefaultRoutesName.PATCH,
+        DefaultRoutesName.READ_ALL
+    ]
+)
 
 user_privilege_router=user_privilege_router_provider.get_protected_router()
 
